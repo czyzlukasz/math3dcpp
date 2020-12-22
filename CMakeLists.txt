@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(Src)
 
-add_library(math3dcpp Src/Vector3.cpp Src/Matrix.cpp Src/Quaternion.cpp)
+add_library(math3dcpp Src/VectorImpl.cpp Src/Matrix.cpp Src/Quaternion.cpp Src/Vector.cpp)
 
 # Uts
 find_package(GTest REQUIRED)

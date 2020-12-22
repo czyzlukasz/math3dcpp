@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
-#include <Vector3.hpp>
+#include <Vector.hpp>
 #include <Configuration.hpp>
 #include <cmath>
 
+using Vector3d = Vector3<double>;
 
 TEST(Vector3Test, ZeroLength){
     const Vector3d zeroVector;
@@ -23,11 +24,12 @@ TEST(Vector3Test, NormalizeNonZeroVector){
     const Vector3d vector3d(3., 1., -2.);
     const auto result = vector3d.normalized();
     ASSERT_NE(result, std::nullopt);
+    const Vector3d resultVector(result.value());
 
     const double denominator = std::sqrt(14.);
-    EXPECT_DOUBLE_EQ(result->x, vector3d.x / denominator);
-    EXPECT_DOUBLE_EQ(result->y, vector3d.y / denominator);
-    EXPECT_DOUBLE_EQ(result->z, vector3d.z / denominator);
+    EXPECT_DOUBLE_EQ(resultVector.x(), vector3d.x() / denominator);
+    EXPECT_DOUBLE_EQ(resultVector.y(), vector3d.y() / denominator);
+    EXPECT_DOUBLE_EQ(resultVector.z(), vector3d.z() / denominator);
 }
 
 TEST(Vector3Test, AddTwoVectors){
@@ -38,9 +40,9 @@ TEST(Vector3Test, AddTwoVectors){
 
     EXPECT_EQ(result1, result2);
 
-    EXPECT_DOUBLE_EQ(result1.x, 3.5);
-    EXPECT_DOUBLE_EQ(result1.y, 1.);
-    EXPECT_DOUBLE_EQ(result1.z, 3.);
+    EXPECT_DOUBLE_EQ(result1.x(), 3.5);
+    EXPECT_DOUBLE_EQ(result1.y(), 1.);
+    EXPECT_DOUBLE_EQ(result1.z(), 3.);
 }
 
 TEST(Vector3Test, SubTwoVectors){
@@ -51,16 +53,16 @@ TEST(Vector3Test, SubTwoVectors){
 
     EXPECT_EQ(result1, result2);
 
-    EXPECT_DOUBLE_EQ(result1.x, 2.5);
-    EXPECT_DOUBLE_EQ(result1.y, 1.);
-    EXPECT_DOUBLE_EQ(result1.z, -7.);
+    EXPECT_DOUBLE_EQ(result1.x(), 2.5);
+    EXPECT_DOUBLE_EQ(result1.y(), 1.);
+    EXPECT_DOUBLE_EQ(result1.z(), -7.);
 }
 
 TEST(Vector3Test, MultiplyByScalar){
     const Vector3d vector3d(3., 1., -2.);
     const Vector3d result = vector3d * 0.75;
 
-    EXPECT_DOUBLE_EQ(result.x, 2.25);
-    EXPECT_DOUBLE_EQ(result.y, 0.75);
-    EXPECT_DOUBLE_EQ(result.z, -1.5);
+    EXPECT_DOUBLE_EQ(result.x(), 2.25);
+    EXPECT_DOUBLE_EQ(result.y(), 0.75);
+    EXPECT_DOUBLE_EQ(result.z(), -1.5);
 }
