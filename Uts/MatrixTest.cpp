@@ -101,3 +101,18 @@ TEST(MatrixTest, MultiplyByScalar){
     const Matrix3d result = matrix * 0.75;
     EXPECT_EQ(result, expectedResult);
 }
+
+TEST(MatrixTest, CheckIfEqual){
+    const Matrix3d matrix1({
+        {1, 0, -6},
+        {6, 2, 8},
+        {1, 2, -7}
+    });
+    const Matrix3d matrix2({
+      {0.75, 0, -4.5},
+      {4.5, 1.5, 6},
+      {0.75, 1.5, -5.25}
+    });
+
+    EXPECT_NE(matrix1, matrix2);
+}
