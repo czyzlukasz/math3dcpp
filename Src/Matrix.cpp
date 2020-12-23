@@ -81,10 +81,14 @@ Matrix<DIM, TYPE> Matrix<DIM, TYPE>::operator-(const Matrix<DIM, TYPE>& other) c
 
 template<unsigned int DIM, typename TYPE>
 bool Matrix<DIM, TYPE>::operator==(const Matrix<DIM, TYPE> &other) const {
+    static constexpr  auto isInRange = [](TYPE a, TYPE b) -> bool{
+        constexpr TYPE maxError = 1e-6;
+        return a - maxError <= b && a + maxError >= b;
+    };
     Matrix<DIM, TYPE> result;
     for(size_t x = 0; x < DIM; ++x){
         for(size_t y = 0; y < DIM; ++y) {
-            if(values[y][x] != other.values[y][x]){
+            if(!isInRange(values[y][x], other.values[y][x])){
                 return false;
             }
         }

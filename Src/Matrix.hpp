@@ -17,6 +17,8 @@ struct Matrix {
     Matrix<DIM, TYPE> operator*(TYPE other) const;
     Matrix<DIM, TYPE> operator+(const Matrix<DIM, TYPE>& other) const;
     Matrix<DIM, TYPE> operator-(const Matrix<DIM, TYPE>& other) const;
+
+    // This operator allows for some difference between elements
     bool operator==(const Matrix<DIM, TYPE>& other) const;
 
     // Indexing is done by values[row][column]

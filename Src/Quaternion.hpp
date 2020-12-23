@@ -4,6 +4,8 @@
 
 template<typename TYPE>
 struct Vector3;
+template<unsigned int DIM, typename TYPE>
+struct Matrix;
 
 template<typename TYPE>
 struct Quaternion {
@@ -13,7 +15,9 @@ struct Quaternion {
 
     Vector3<TYPE> toEulerAngles() const;
     TYPE length() const;
+    Quaternion<TYPE> normalized() const;
     Quaternion<TYPE> reciprocated() const;
+    Matrix<3, TYPE> toRotationMatrix() const;
 
     Quaternion<TYPE> operator*(const Quaternion<TYPE>& other) const;
 

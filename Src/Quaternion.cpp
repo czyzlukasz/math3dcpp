@@ -1,6 +1,7 @@
 #include <Quaternion.hpp>
 #include <cmath>
 #include <Vector.hpp>
+#include <Matrix.hpp>
 
 template struct Quaternion<double>;
 template struct Quaternion<float>;
@@ -54,6 +55,12 @@ TYPE Quaternion<TYPE>::length() const {
 }
 
 template<typename TYPE>
+Quaternion<TYPE> Quaternion<TYPE>::normalized() const {
+    const TYPE den = length();
+    return Quaternion<TYPE>(w / den, x / den, y / den, z / den);
+}
+
+template<typename TYPE>
 Quaternion<TYPE> Quaternion<TYPE>::reciprocated() const {
     const Quaternion<TYPE> conjugatedQuaternion(w, -x, -y, -z);
     const TYPE normSquared = std::pow(length(), 2);
@@ -61,6 +68,16 @@ Quaternion<TYPE> Quaternion<TYPE>::reciprocated() const {
                              conjugatedQuaternion.x / normSquared,
                              conjugatedQuaternion.y / normSquared,
                              conjugatedQuaternion.z / normSquared);
+}
+
+template<typename TYPE>
+Matrix<3, TYPE> Quaternion<TYPE>::toRotationMatrix() const {
+    const Quaternion<TYPE> n = normalized();
+    return Matrix<3, TYPE> {
+        {1 - 2 * n.y * n.y - 2 * n.z * n.z, 2 * n.x * n.y - 2 * n.z * n.w, 2 * n.x * n.z + 2 * n.y * n.w},
+        {2 * n.x * n.y + 2 * n.z * n.w, 1 - 2 * n.x * n.x - 2 * n.z * n.z, 2 * n.y * n.z - 2 * n.x * n.w},
+        {2 * n.x * n.z - 2 * n.y * n.w, 2 * n.y * n.z + 2 * n.x * n.w, 1 - 2 * n.x * n.x - 2 * n.y * n.y}
+    };
 }
 
 template<typename TYPE>
