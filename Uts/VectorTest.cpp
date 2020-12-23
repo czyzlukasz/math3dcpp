@@ -100,7 +100,7 @@ TEST(VectorTest, RotateDirectionVectorByPitchAndYaw){
 
 TEST(VectorTest, RotateDirectionVectorBy360Degrees){
     const Vector3d vector3d(4, 0, 0);
-    Quaterniond quaternion(Vector3d(0, 360, 0));
+    Quaterniond quaternion(Vector3d(360, 360, -360));
     const Vector3d result = vector3d.rotatedByQuaternion(quaternion);
 
     EXPECT_NEAR(result.x(), vector3d.x(), 1e-6);
