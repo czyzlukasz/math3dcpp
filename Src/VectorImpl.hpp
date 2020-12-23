@@ -5,6 +5,10 @@
 #include <initializer_list>
 #include <array>
 
+
+template<typename TYPE>
+struct Quaternion;
+
 template<unsigned int DIM, typename TYPE>
 struct VectorImpl {
     VectorImpl();
@@ -12,9 +16,11 @@ struct VectorImpl {
     // Defined in .hpp to avoid mess with template specialization
     template<typename... T>
     VectorImpl(T... initialValues) : values{initialValues...}{};
+    VectorImpl(const VectorImpl<DIM, TYPE>& other) = default;
 
     TYPE length() const;
     std::optional<VectorImpl<DIM, TYPE>> normalized() const;
+    VectorImpl<DIM, TYPE> rotatedByQuaternion(const Quaternion<TYPE>& quaternion) const;
 
     // Operators
     VectorImpl<DIM, TYPE> operator/(TYPE other) const;

@@ -27,6 +27,11 @@ Quaternion<TYPE>::Quaternion(const Vector3<TYPE>& eulerAngles) {
 }
 
 template<typename TYPE>
+Quaternion<TYPE>::Quaternion(TYPE w, TYPE x, TYPE y, TYPE z) : w(w), x(x), y(y), z(z){
+
+}
+
+template<typename TYPE>
 Vector3<TYPE> Quaternion<TYPE>::toEulerAngles() const {
     Vector3<TYPE> result;
     result.x() = std::atan2(2. * (w * x + y * z), 1. - 2. * (x * x + y * y));
@@ -41,4 +46,29 @@ Vector3<TYPE> Quaternion<TYPE>::toEulerAngles() const {
     result.z() = r2d(result.z());
 
     return result;
+}
+
+template<typename TYPE>
+TYPE Quaternion<TYPE>::length() const {
+    return std::sqrt(w * w + x * x + y * y + z * z);
+}
+
+template<typename TYPE>
+Quaternion<TYPE> Quaternion<TYPE>::reciprocated() const {
+    const Quaternion<TYPE> conjugatedQuaternion(w, -x, -y, -z);
+    const TYPE normSquared = std::pow(length(), 2);
+    return Quaternion<TYPE> (conjugatedQuaternion.w / normSquared,
+                             conjugatedQuaternion.x / normSquared,
+                             conjugatedQuaternion.y / normSquared,
+                             conjugatedQuaternion.z / normSquared);
+}
+
+template<typename TYPE>
+Quaternion<TYPE> Quaternion<TYPE>::operator*(const Quaternion<TYPE> &other) const {
+    const TYPE newW = w * other.w - x * other.x - y * other.y - z * other.z;
+    const TYPE newX = w * other.x + x * other.w + y * other.z - z * other.y;
+    const TYPE newY = w * other.y - x * other.z + y * other.w + z * other.x;
+    const TYPE newZ = w * other.z + x * other.y - y * other.x + z * other.w;
+
+    return Quaternion<TYPE>(newW, newX, newY, newZ);
 }

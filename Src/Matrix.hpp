@@ -8,7 +8,6 @@ struct Matrix {
     using ValueType = std::array<std::array<TYPE, DIM>, DIM>;
 
     Matrix();
-    Matrix(ValueType&& value);
     Matrix(std::initializer_list<std::initializer_list<TYPE>>&& value);
 
     TYPE determinant() const;

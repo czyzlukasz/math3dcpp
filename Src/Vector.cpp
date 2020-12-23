@@ -2,6 +2,8 @@
 
 template struct Vector3<double>;
 template struct Vector3<float>;
+template struct Vector4<double>;
+template struct Vector4<float>;
 
 template<typename TYPE>
 Vector3<TYPE>::Vector3() : VectorImpl<3, TYPE>(){
@@ -46,4 +48,58 @@ const TYPE& Vector3<TYPE>::y() const{
 template<typename TYPE>
 const TYPE& Vector3<TYPE>::z() const{
     return this->values[2];
+}
+
+template<typename TYPE>
+Vector4<TYPE>::Vector4() : VectorImpl<4, TYPE>(){
+
+}
+
+template<typename TYPE>
+Vector4<TYPE>::Vector4(TYPE a, TYPE b, TYPE c, TYPE d) : VectorImpl<4, TYPE>({a, b, c, d}){
+
+}
+
+template<typename TYPE>
+Vector4<TYPE>::Vector4(const VectorImpl<4, TYPE>& vector) : VectorImpl<4, TYPE>(vector){
+
+}
+
+template<typename TYPE>
+TYPE& Vector4<TYPE>::a() {
+    return this->values[0];
+}
+
+template<typename TYPE>
+TYPE& Vector4<TYPE>::b() {
+    return this->values[1];
+}
+
+template<typename TYPE>
+TYPE& Vector4<TYPE>::c() {
+    return this->values[2];
+}
+
+template<typename TYPE>
+TYPE& Vector4<TYPE>::d() {
+    return this->values[3];
+}
+
+template<typename TYPE>
+const TYPE& Vector4<TYPE>::a() const{
+    return this->values[0];
+}
+
+template<typename TYPE>
+const TYPE& Vector4<TYPE>::b() const{
+    return this->values[1];
+}
+
+template<typename TYPE>
+const TYPE& Vector4<TYPE>::c() const{
+    return this->values[2];
+}
+template<typename TYPE>
+const TYPE& Vector4<TYPE>::d() const{
+    return this->values[3];
 }

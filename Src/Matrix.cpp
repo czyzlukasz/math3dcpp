@@ -11,11 +11,6 @@ Matrix<DIM, TYPE>::Matrix() : values(){
 }
 
 template<unsigned int DIM, typename TYPE>
-Matrix<DIM, TYPE>::Matrix(Matrix::ValueType&& value) : values(std::move(value)){
-
-}
-
-template<unsigned int DIM, typename TYPE>
 Matrix<DIM, TYPE>::Matrix(std::initializer_list<std::initializer_list<TYPE>>&& value) {
     for(size_t x = 0; x < DIM; ++x){
         const auto& column = value.begin() + x;

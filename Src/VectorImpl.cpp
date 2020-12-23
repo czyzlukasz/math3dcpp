@@ -1,6 +1,8 @@
 #include <VectorImpl.hpp>
 #include <cmath>
 #include <numeric>
+#include <Vector.hpp>
+#include <Quaternion.hpp>
 
 template struct VectorImpl<3, double>;
 template struct VectorImpl<3, float>;
@@ -25,6 +27,14 @@ std::optional<VectorImpl<DIM, TYPE>> VectorImpl<DIM, TYPE>::normalized() const {
         return *this / det;
     }
     return std::nullopt;
+}
+
+template<unsigned int DIM, typename TYPE>
+VectorImpl<DIM, TYPE> VectorImpl<DIM, TYPE>::rotatedByQuaternion(const Quaternion<TYPE>& quaternion) const {
+    const Quaternion<TYPE> quaternionReciprocated = quaternion.reciprocated();
+    const Quaternion<TYPE> result = quaternion * Quaternion<TYPE>(0, values[0], values[1], values[2]) * quaternionReciprocated;
+    // TODO: Find a way to avoid usage when DIM != 3
+    return VectorImpl<DIM, TYPE>(result.x, result.y, result.z);
 }
 
 template<unsigned int DIM, typename TYPE>
