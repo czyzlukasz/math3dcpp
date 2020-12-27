@@ -57,3 +57,30 @@ TEST(CoordinatesTest, DdToDmsLongitudeW){
     EXPECT_EQ(ew, 'W');
 }
 
+TEST(CoordinatesTest, SmallDistanceBetweenCoordinates){
+    const Coordinates first(12.3_N, 1.2_E);
+    const Coordinates second(12.30004_N, 1.2_E);
+
+    EXPECT_NEAR(Coordinates::distanceBetween(first, second), 4.448, 1e-3);
+}
+
+TEST(CoordinatesTest, LargeDistanceBetweenCoordinates){
+    const Coordinates first(12.3_S, 1.2_E);
+    const Coordinates second(52.4_N, 18.9_W);
+
+    EXPECT_NEAR(Coordinates::distanceBetween(first, second), 7447856, 1.);
+}
+
+TEST(CoordinatesTest, SmallDistanceBearing){
+    const Coordinates first(12.3_S, 1.2_E);
+    const Coordinates second(12.4_S, 1.5_E);
+
+    EXPECT_NEAR(first.initialBearing(second), 108.873, 1e-3);
+}
+
+TEST(CoordinatesTest, LargeDistanceBearing){
+    const Coordinates first(12.3_S, 1.2_E);
+    const Coordinates second(52.4_N, 18.9_W);
+
+    EXPECT_NEAR(first.initialBearing(second), 346.831, 1e-3);
+}

@@ -30,3 +30,35 @@ std::tuple<unsigned int, unsigned int, float, char> Coordinates::getHumanReadabl
     const auto [d, m, s, isPositive] = ddToDms(longitude);
     return {d, m, s, isPositive ? 'E' : 'W'};
 }
+
+double Coordinates::distanceBetween(const Coordinates &first, const Coordinates &second) {
+    // Calculations are done using Haversine formula
+    static constexpr auto d2r = [](double deg) -> double{
+        return deg * M_PI / 180.;
+    };
+
+    const double deltaLatitude = second.latitude - first.latitude;
+    const double deltaLongitude = second.longitude - first.longitude;
+
+    const double a = std::pow(std::sin(d2r(deltaLatitude / 2.)), 2) +
+            std::cos(d2r(first.latitude)) * std::cos(d2r(second.latitude)) * std::pow(std::sin(d2r(deltaLongitude / 2.)), 2);
+
+    const double c = 2. * std::atan2(std::sqrt(a), std::sqrt(1. - a));
+    const double d = earthRadius * c;
+
+    return d;
+}
+
+double Coordinates::initialBearing(const Coordinates &destination) const {
+    static constexpr auto d2r = [](double deg) -> double{
+        return deg * M_PI / 180.;
+    };
+
+    const double deltaLongitude = destination.longitude - longitude;
+    const double y = std::sin(d2r(deltaLongitude)) * std::cos(d2r(destination.latitude));
+    const double x = std::cos(d2r(latitude)) * std::sin(d2r(destination.latitude)) -
+            std::sin(d2r(latitude)) * std::cos(d2r(destination.latitude)) * std::cos(d2r(deltaLongitude));
+    const double angleInDegrees = std::atan2(y, x) * 180. / M_PI;
+
+    return std::fmod(angleInDegrees + 360., 360.);
+}

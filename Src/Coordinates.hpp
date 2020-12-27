@@ -68,8 +68,27 @@ public:
     std::tuple<unsigned int, unsigned int, float, char> getHumanReadableLongitude() const;
     /** @} */
 
+    /**
+     * @brief Calculate distance between two points on Earth
+     * Note that distance is calculated as shortest path along Earth's surface
+     * @param first First point on Earth
+     * @param second Second point on Earth
+     * @return Distance between two points in meters
+     */
+    static double distanceBetween(const Coordinates& first, const Coordinates& second);
+
+    /**
+     * @brief Calculate bearing (forward azimuth) from current coordinates to a destination
+     * @param Destination Point on Earth's surface that initial bearing will aim towards
+     * @return Bearing in degrees
+     */
+    double initialBearing(const Coordinates& destination) const;
+
     Latitude latitude;
     Longitude longitude;
+
+private:
+    static constexpr double earthRadius = 6.371e6;
 };
 
 /**
