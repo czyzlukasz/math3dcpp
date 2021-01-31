@@ -10,7 +10,7 @@ add_library(math3dcpp
         Src/Matrix.cpp
         Src/Quaternion.cpp
         Src/Vector.cpp
-        Src/Coordinates.cpp)
+        Src/Coordinates.cpp Src/RigidBody.cpp Src/RigidBody.hpp)
 
 # Uts
 find_package(GTest REQUIRED)

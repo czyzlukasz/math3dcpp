@@ -13,7 +13,7 @@ struct Matrix;
  */
 template<typename TYPE>
 struct Quaternion {
-
+    Quaternion() = default;
     /**
      * @brief Constructor that converts Euler angles (Roll, Pitch, Yaw) to a quaternion
      * @param eulerAngles Vector containing RPY angles in degrees

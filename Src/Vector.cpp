@@ -21,6 +21,14 @@ Vector3<TYPE>::Vector3(const VectorImpl<3, TYPE>& vector) : VectorImpl<3, TYPE>(
 }
 
 template<typename TYPE>
+Vector3<TYPE> Vector3<TYPE>::cross(const Vector3<TYPE> &first, const Vector3<TYPE> &second) {
+    return Vector3<TYPE>(
+            first.y() * second.z() - first.z() * second.y(),
+            first.z() * second.x() - first.x() * second.z(),
+            first.x() * second.y() - first.y() * second.x());
+}
+
+template<typename TYPE>
 TYPE& Vector3<TYPE>::x() {
     return this->values[0];
 }

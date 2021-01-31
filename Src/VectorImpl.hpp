@@ -59,7 +59,9 @@ struct VectorImpl {
      * @{
      */
     VectorImpl<DIM, TYPE> operator/(TYPE other) const;
+    VectorImpl<DIM, TYPE> operator/(const VectorImpl<DIM, TYPE>& other) const;
     VectorImpl<DIM, TYPE> operator*(TYPE other) const;
+    VectorImpl<DIM, TYPE> operator*(const VectorImpl<DIM, TYPE>& other) const;
     VectorImpl<DIM, TYPE> operator+(const VectorImpl<DIM, TYPE>& other) const;
     VectorImpl<DIM, TYPE> operator-(const VectorImpl<DIM, TYPE>& other) const;
     VectorImpl<DIM, TYPE> operator-() const;

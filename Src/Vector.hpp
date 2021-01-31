@@ -28,6 +28,14 @@ struct Vector3 : VectorImpl<3, TYPE>{
     Vector3(const VectorImpl<3, TYPE>& vector);
 
     /**
+     * @brief Cross product of two vectors
+     * @param first
+     * @param second
+     * @return Vector that is a result of calculating first x second
+     */
+    static Vector3<TYPE> cross(const Vector3<TYPE>& first, const Vector3<TYPE>& second);
+
+    /**
      * Getters for each parameter
      * @return Reference to given member
      * @{

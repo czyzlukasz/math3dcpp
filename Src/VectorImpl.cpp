@@ -47,10 +47,28 @@ VectorImpl<DIM, TYPE> VectorImpl<DIM, TYPE>::operator/(TYPE other) const {
 }
 
 template<unsigned int DIM, typename TYPE>
+VectorImpl<DIM, TYPE> VectorImpl<DIM, TYPE>::operator/(const VectorImpl<DIM, TYPE> &other) const {
+    VectorImpl<DIM, TYPE> result;
+    for(size_t idx = 0; idx < DIM; ++idx){
+        result.values[idx] = values[idx] / other.values[idx];
+    }
+    return result;
+}
+
+template<unsigned int DIM, typename TYPE>
 VectorImpl<DIM, TYPE> VectorImpl<DIM, TYPE>::operator*(TYPE other) const {
     VectorImpl<DIM, TYPE> result;
     for(size_t idx = 0; idx < DIM; ++idx){
         result.values[idx] = values[idx] * other;
+    }
+    return result;
+}
+
+template<unsigned int DIM, typename TYPE>
+VectorImpl<DIM, TYPE> VectorImpl<DIM, TYPE>::operator*(const VectorImpl<DIM, TYPE> &other) const {
+    VectorImpl<DIM, TYPE> result;
+    for(size_t idx = 0; idx < DIM; ++idx){
+        result.values[idx] = values[idx] * other.values[idx];
     }
     return result;
 }
